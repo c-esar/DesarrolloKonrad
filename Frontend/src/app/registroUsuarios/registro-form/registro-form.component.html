@@ -1,0 +1,29 @@
+<div class="testbox">
+  <h1>Registro</h1>
+
+  <form (submit)="save()">
+    <hr>
+    <!--
+     <div class="accounttype">
+        <input type="radio" value="None" id="radioOne" name="account" checked/>
+        <label for="radioOne" class="radio" chec>Personal</label>
+        <input type="radio" value="None" id="radioTwo" name="account" />
+        <label for="radioTwo" class="radio">Company</label>
+      </div>
+   -->
+    <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese su nombre commpleto"
+      name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario">
+
+    <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario" name="usuario"
+      [(ngModel)]="usuario.usuario">
+
+    <input type="password" class="form-control" id="contrasena" placeholder="Ingrese su contrasena" name="contrasena"
+      [(ngModel)]="usuario.contrasena">
+
+    <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo" name="correo"
+      [(ngModel)]="usuario.correo">
+
+    <hr>
+    <button class="btn-login" type="submit">Guardar</button>
+  </form>
+</div>
