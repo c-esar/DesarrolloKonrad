@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import proyecto.konrad.util.utilMensaje;
 
 @Entity
 @Table(name="FormularioUsuario")
@@ -25,7 +26,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FormularioUsuario implements Serializable {
+public class FormularioUsuario extends utilMensaje implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

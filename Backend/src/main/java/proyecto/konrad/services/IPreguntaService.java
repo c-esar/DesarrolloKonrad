@@ -9,6 +9,7 @@ public interface IPreguntaService {
 	public Object save(Pregunta pregunta);
 	public Object update(Pregunta pregunta);
 	public Object delete(Long id);
+	public Object findAllByFormulario(Long id);
 	
 
 }

@@ -29,8 +29,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Override
 	public Object findById(Long id) {
 		try {
-			iUsuarioRepository.findById(id);
-			return Optional.ofNullable("Sin resultados");
+			Optional<?> temp = iUsuarioRepository.findById(id);
+			if(temp.isPresent()) {
+				return temp.get();
+			}else {
+				return new Usuario("Error al buscar", false);
+			}
 		} catch (Exception e) {
 			return new String("Error " + e.getMessage());
 		} 

@@ -1,13 +1,13 @@
 import { Utils } from "./utils";
 
 export class Usuario {
-idUsuario: number| undefined;
-nombreUsuario: string | undefined;
+idUsuario: number | any ;
+nombreUsuario: string | any;
 usuario: string;
 contrasena: string;
-rol: string| undefined;
-correo: string| undefined;
-utils: Utils | undefined;
+rol: string| any;
+correo: string| any;
+utils: Utils | any;
 constructor(){
     this.usuario = "";
     this.contrasena ="";

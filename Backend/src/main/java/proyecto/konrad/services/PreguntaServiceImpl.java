@@ -25,6 +25,16 @@ public class PreguntaServiceImpl implements IPreguntaService {
 			return new String("Error " + e.getMessage());
 		}
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Object findAllByFormulario(Long id) {
+		try {
+			return (List<Pregunta>) iPreguntaRepository.findAllByFormularioIdFormulario(id);
+		} catch (Exception e) {
+			return new String("Error " + e.getMessage());
+		}
+	}
 
 	@Override
 	public Object findById(Long id) {

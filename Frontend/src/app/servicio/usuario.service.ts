@@ -23,8 +23,16 @@ export class UsuarioService {
     return this.httpClient.get<Usuario>(`${this.backendURL}/byUsuario/${usu}`);
   }
 
+  findByIdUsuario(usu: String): Observable<Usuario> {
+    return this.httpClient.get<Usuario>(`${this.backendURL}/byId/${usu}`);
+  }
+
   createUser(usuario: Usuario): Observable<Usuario>{
     return this.httpClient.post<Usuario>(`${this.backendURL}/save`, usuario);
+  }
+
+  updateUser(usuario: Usuario): Observable<Usuario>{
+    return this.httpClient.put<Usuario>(`${this.backendURL}/update`, usuario);
   }
 
 }

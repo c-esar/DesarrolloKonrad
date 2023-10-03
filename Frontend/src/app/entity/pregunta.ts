@@ -2,10 +2,12 @@ import { Formulario } from "./formulario";
 import { Opcion } from "./opcion";
 
 export class Pregunta {
-    idPregunta: number | undefined;
-    nombreOpcion: string | undefined;
-    idFormulario: Formulario | undefined;
-    opcion : Opcion[] | undefined;
+    idPregunta: number | any;
+    nombrePregunta: string | any;
+    formulario: Formulario | any;
 
-    constructor(){}
+    constructor(){
+        this.idPregunta = null;
+        this.formulario = new Formulario();
+    }
 }

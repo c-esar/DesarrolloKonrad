@@ -3,6 +3,7 @@ package proyecto.konrad.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,11 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import proyecto.konrad.util.utilMensaje;
 
 @Entity
 @Table(name="Pregunta")
@@ -26,12 +32,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Pregunta implements Serializable {
+public class Pregunta extends utilMensaje implements Serializable {
 	
 	public Pregunta() {
 		super();
 	}
 
+	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -39,23 +46,25 @@ public class Pregunta implements Serializable {
 	private Long idPregunta;
 	
 	@Column(name="NOMBRE_PREGUNTA")
-	private String nombreOpcion;
+	private String nombrePregunta;
+	 
+	@JsonIgnoreProperties("pregunta")
+	@ManyToOne
+    @JoinColumn(name="ID_FORMULARIO")
+    private Formulario formulario;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_FORMULARIO", nullable=false)
-    private Formulario idFormulario;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="idOpcion")
+//    private Set<Opcion> opcion;
 	
-	@OneToMany(mappedBy="idOpcion")
-    private Set<Opcion> opcion;
-	
-    public void addOpcion(Opcion opci) {
-    	opcion.add(opci);
-    	opci.setIdPregunta(this);
-    }
-    public void removePregunta(Opcion opci) {
-    	opcion.remove(opci);
-    	opci.setIdPregunta(null);
-    }
+//    public void addOpcion(Opcion opci) {
+//    	opcion.add(opci);
+//    	opci.setIdPregunta(this);
+//    }
+//    public void removePregunta(Opcion opci) {
+//    	opcion.remove(opci);
+//    	opci.setIdPregunta(null);
+//    }
     
 	
 
@@ -80,7 +89,7 @@ public class Pregunta implements Serializable {
 
 
 	public String getNombreOpcion() {
-		return nombreOpcion;
+		return nombrePregunta;
 	}
 
 
@@ -89,7 +98,7 @@ public class Pregunta implements Serializable {
 
 
 	public void setNombreOpcion(String nombreOpcion) {
-		this.nombreOpcion = nombreOpcion;
+		this.nombrePregunta = nombreOpcion;
 	}
 
 
@@ -98,7 +107,7 @@ public class Pregunta implements Serializable {
 
 
 	public Formulario getIdFormulario() {
-		return idFormulario;
+		return formulario;
 	}
 
 
@@ -106,9 +115,17 @@ public class Pregunta implements Serializable {
 
 
 
-	public void setIdFormulario(Formulario idFormulario) {
-		this.idFormulario = idFormulario;
+	public void setIdFormulario(Formulario formulario) {
+		this.formulario = formulario;
 	}
+
+
+	public Pregunta(String nombreOpcion, Formulario idFormulario, Set<Opcion> opcion) {
+		super();
+		this.nombrePregunta = nombreOpcion;
+		this.formulario = idFormulario;
+	}
+
 
 
 	private static final long serialVersionUID = 1L;

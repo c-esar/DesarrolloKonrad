@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyecto.konrad.entity.Formulario;
+import proyecto.konrad.entity.Usuario;
 import proyecto.konrad.repository.IFormularioRepository;
 
 @Service
@@ -21,18 +22,23 @@ public class FormularioServiceImpl implements IFormularioService {
 	public Object findAll() {
 		try {
 			return (List<Formulario>) iFormularioRepository.findAll();
+			
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Formulario("Error " + e.getMessage(), false);
 		}
 	}
 
 	@Override
 	public Object findById(Long id) {
 		try {
-			iFormularioRepository.findById(id);
-			return Optional.ofNullable("Sin resultados");
+			Optional<?> temp = iFormularioRepository.findById(id);
+			if(temp.isPresent()) {
+				return temp.get();
+			}else {
+				return new Formulario("Error al buscar", false);
+			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Formulario("Error " + e.getMessage(), false);
 		} 
 	}
 
@@ -46,7 +52,7 @@ public class FormularioServiceImpl implements IFormularioService {
 				return new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Formulario("Error " + e.getMessage(), false);
 		}
 	}
 
@@ -60,7 +66,7 @@ public class FormularioServiceImpl implements IFormularioService {
 				return new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Formulario("Error " + e.getMessage(), false);
 		}
 	}
 
@@ -70,7 +76,7 @@ public class FormularioServiceImpl implements IFormularioService {
 			iFormularioRepository.deleteById(id);
 			return Boolean.TRUE;
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Formulario("Error " + e.getMessage(), false);
 		}
 		
 	}

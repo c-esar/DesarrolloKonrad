@@ -1,17 +1,20 @@
+<app-principal-form></app-principal-form>
+
 <div class="testbox">
   <h1>Registro</h1>
 
   <form (submit)="save()">
     <hr>
-    <!--
-     <div class="accounttype">
-        <input type="radio" value="None" id="radioOne" name="account" checked/>
-        <label for="radioOne" class="radio" chec>Personal</label>
-        <input type="radio" value="None" id="radioTwo" name="account" />
-        <label for="radioTwo" class="radio">Company</label>
-      </div>
-   -->
-    <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese su nombre commpleto"
+
+    <div class="accounttype" *ngIf="usuarioSesion != null && usuarioSesion.rol == 'ADM'">
+        <input type="checkbox"  id="radioOne" name="radioOne" [(ngModel)]="admBoolean" />
+        <label for="radioOne"  chec>Administrador</label>
+ 
+        <input type="checkbox"  id="radioTwo" name="radioTwo" [(ngModel)]="usuBoolean" />
+        <label for="radioTwo" >Usuario</label>
+    </div>
+
+    <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese su nombre completo"
       name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario">
 
     <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario" name="usuario"
@@ -26,4 +29,22 @@
     <hr>
     <button class="btn-login" type="submit">Guardar</button>
   </form>
+
+  <hr>
+  <hr>
+  <hr>
+  <div *ngIf="usuarioSesion != null && usuarioSesion.rol == 'ADM' && paramId == null">
+    <table>
+      <tr>
+        <th>Usuario</th>
+        <th>Rol</th>
+        <th>Acción</th>
+      </tr>
+      <tr *ngFor="let item of usuarios">
+        <td>{{item.usuario}}</td>
+        <td>{{item.rol}}</td>
+        <td><button class="btn-login" [routerLink]="['/registro',item.idUsuario]">Editar</button></td>
+      </tr>
+    </table>
+  </div>
 </div>

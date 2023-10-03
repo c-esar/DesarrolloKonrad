@@ -8,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistroFormComponent } from './registroUsuarios/registro-form/registro-form.component';
 import { PrincipalFormComponent } from './principal/principal-form/principal-form.component';
+import { FormularioFormComponent } from './formulario/formulario-form/formulario-form.component';
+import { PreguntaFormComponent } from './pregunta/pregunta-form/pregunta-form.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     RegistroFormComponent,
-    PrincipalFormComponent
+    PrincipalFormComponent,
+    FormularioFormComponent,
+    PreguntaFormComponent
   ],
   imports: [
     BrowserModule,

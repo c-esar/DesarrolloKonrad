@@ -31,6 +31,11 @@ public class PreguntaController {
 		return iPreguntaService.findById(idPregunta);
 	}
 	
+	@GetMapping("/byFormulario/{id}")
+	public Object findByFormulario(@PathVariable String id) {
+		return iPreguntaService.findAllByFormulario(Long.parseLong(id));
+	}
+	
 	@PostMapping("/save")
 	public Object save(@RequestBody Pregunta pregunta) {
 		return iPreguntaService.save(pregunta);

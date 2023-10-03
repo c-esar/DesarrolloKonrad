@@ -2,8 +2,10 @@ package proyecto.konrad.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,20 +14,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import proyecto.konrad.util.utilMensaje;
 
 @Entity
 @Table(name="Formulario")
-@Data
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Formulario implements Serializable {
+
+public class Formulario extends utilMensaje implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,24 +38,15 @@ public class Formulario implements Serializable {
 	
 	@Column(name="NOMBRE_FORMULARIO")
 	private String nombreFormulario;
-	
-//	@Column(name="FECHA_REGISTRO")
-//	private Date fechaRegistro;
-	
-	@OneToMany(mappedBy="idFormulario")
-    private Set<Pregunta> pregunta;
-	
-    public void addPregunta(Pregunta pregun) {
-    	pregunta.add(pregun);
-    	pregun.setIdFormulario(this);
-    }
-    public void removePregunta(Pregunta pregun) {
-    	pregunta.remove(pregun);
-    	pregun.setIdFormulario(null);
-    }
-    
-    
 
+	public Formulario() {
+		
+	}
+    
+	public Formulario(String mensaje, Boolean valor) {
+		this.setMensaje(mensaje);
+		this.setEstado(valor);
+	}
 
 
 

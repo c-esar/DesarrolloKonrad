@@ -1,0 +1,53 @@
+<app-principal-form></app-principal-form>
+<button class="btn-login" (click)="crearFormNuevo()">Crear Formulario</button>
+<div *ngIf="editarBoolean ==  false">
+    <table>
+      <tr>
+        <th>Nombre Formulario</th>
+        <th>Acción</th>
+        <th>Ver formulario</th>
+      </tr>
+      <tr *ngFor="let item of formularios">
+        <td>{{item.nombreFormulario}}</td>
+        <td><button class="btn-login" [routerLink]="['/formulario',item.idFormulario]">Editar</button></td>
+        <td><button class="btn-login" [routerLink]="['/formulario',item.idFormulario]">Ver</button></td>
+      </tr>
+    </table>
+</div>
+
+<div class="testbox" *ngIf="editarBoolean && crearBoolean != true">
+        <h1>Editar formulario</h1>
+    <form (submit)="createForm()">
+    
+        <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese nombre formulario"
+          name="nombreUsuario" [(ngModel)]="formulario.nombreFormulario">
+    
+        <hr>
+        <button class="btn-login" type="submit">Guardar</button>
+        <hr>
+        <table>
+          <tr>
+            <th>Preguntas</th>
+            <th>Acción</th>
+          </tr>
+          <tr *ngFor="let item of preguntas">
+            <td>{{item.nombrePregunta}}</td>
+            <td><button class="btn-login" [routerLink]="['/pregunta',item.idPregunta,formulario.idFormulario]">Editar</button></td>
+          </tr>
+        </table>
+        <hr>
+        <button class="btn-login" type="submit" [routerLink]="['/pregunta',formulario.idFormulario]">Crear Preguntas</button>
+      </form>
+</div>
+
+<div class="testbox" *ngIf="crearBoolean">
+    <h1>Crear formulario</h1>
+    <form (submit)="createForm()">
+    
+        <input type="text" class="form-control" id="nombreFormulario" placeholder="Ingrese nombre formulario"
+          name="nombreFormulario" [(ngModel)]="formulario.nombreFormulario">
+    
+        <hr>
+        <button class="btn-login" type="submit">Guardar</button>
+      </form>
+</div>

@@ -1,0 +1,52 @@
+<app-principal-form></app-principal-form>
+
+<form>
+        <div>
+                <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese pregunta"
+                        name="nombreUsuario" [(ngModel)]="pregunta.nombrePregunta">
+
+        </div>
+
+        <hr>
+        <button class="btn-login" (click)="createOpcion()">Crear Opciones</button>
+        <br>
+
+        <div *ngIf="opcionBoolean">
+                <h1>Crear Opción</h1>
+
+                <input type="text" class="form-control" id="nombreOpcion" placeholder="Ingrese su opción"
+                        name="nombreOpcion" [(ngModel)]="opcion.nombreOpcion">
+
+                <button class="btn-login" (click)="createOpcionBack()">Crear opcion</button>
+        </div>
+        <br>
+        <div *ngIf="opcionEditarBoolean">
+                <h1>Editar Opción</h1>
+                <input type="text" class="form-control" id="nombreOpcion" placeholder="Ingrese su opción"
+                        name="nombreOpcion" [(ngModel)]="opcionEditar.nombreOpcion">
+
+                <button class="btn-login" (click)="editarOpcionForm()">Guardar opcion</button>
+        </div>
+        <br>
+        <div>
+                <h1>Tabla Opciones</h1>
+                <table>
+                        <tr>
+                                <th>Pregunta</th>
+                                <th>Acción</th>
+                                <th>Acción</th>
+                        </tr>
+                        <tr *ngFor="let item of opcions; let i = index">
+                                <td>{{item.nombreOpcion}}</td>
+                                <td><button class="btn-login" (click)="editarOpcion(i)">Editar</button></td>
+                                <td><button class="btn-login" (click)="eliminarOpcion(i)">Eliminar</button></td>
+                        </tr>
+
+                </table>
+        </div>
+
+        <div>
+                <button class="btn-login" (click)="cratePreguns()">Guardar todo</button>
+        </div>
+
+</form>

@@ -27,8 +27,8 @@ public class FormularioController {
 	}
 	
 	@GetMapping("/byId/{id}")
-	public Object findById(@PathVariable Long idFormulario) {
-		return iFormularioService.findById(idFormulario);
+	public Object findById(@PathVariable String id) {
+		return iFormularioService.findById(Long.parseLong(id));
 	}
 	
 	@PostMapping("/save")

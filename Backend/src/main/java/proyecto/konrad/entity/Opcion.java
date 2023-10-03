@@ -2,6 +2,7 @@ package proyecto.konrad.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import proyecto.konrad.util.utilMensaje;
 
 @Entity
 @Table(name="Opcion")
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Opcion implements Serializable {
+public class Opcion extends utilMensaje implements Serializable {
 	
 	public Opcion() {
 		super();
@@ -38,7 +40,7 @@ public class Opcion implements Serializable {
 	@Column(name="DESCRIPCION_OPCION")
 	private String nombreOpcion;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="ID_Pregunta", nullable=false)
     private Pregunta idPregunta;
 	

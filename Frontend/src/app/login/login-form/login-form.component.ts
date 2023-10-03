@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit {
     //Arrow function, funcion anónima similar a expersiones Lambda
     userData => {
       if(this.usuario.contrasena == userData.contrasena){
-        this.usuario = userData
+        localStorage.setItem('Idusuario',JSON.stringify(userData));
         this.router.navigate(['/inicio']);
       }else{
         alert("Sin acceso");

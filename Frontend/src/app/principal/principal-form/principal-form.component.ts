@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/entity/usuario';
 
 @Component({
   selector: 'app-principal-form',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrincipalFormComponent implements OnInit {
 
-  constructor() { }
+  public usuario  : Usuario = new Usuario();
+  
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+   this.datosSesion();
+  }
+
+  datosSesion(){
+    this.usuario = JSON.parse(localStorage.getItem('Idusuario')|| '{}') ;
+    console.log(this.usuario); 
+  }
+
+  salir(){
+    localStorage.removeItem('Idusuario');
+    this.router.navigate(['/login']);
   }
 
 }
