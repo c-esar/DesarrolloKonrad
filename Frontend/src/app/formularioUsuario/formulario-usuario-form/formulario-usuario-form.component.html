@@ -1,0 +1,44 @@
+<app-principal-form></app-principal-form>
+<div *ngIf="paramId == null">
+    <table>
+      <tr>
+        <th>Nombre Formulario</th>
+        <th>Acción</th>
+      </tr>
+      <tr *ngFor="let item of formularios">
+        <td>{{item.nombreFormulario}}</td>
+        <td><button class="btn-login" [routerLink]="['/formulariosRealizar',item.idFormulario]">Realizar</button></td>
+      </tr>
+    </table>
+</div>
+
+<div *ngIf="paramId != null">
+    <div class="testbox" >
+        <h1>Ver formulario</h1>
+        <form>
+        
+          <div *ngFor="let item of sePregunta; ; let i = index">
+      
+            <h1>Pregunta {{i+1}}</h1>
+            <div>
+              <input type="text" class="form-control" id="{{item.nombrePregunta}}"  disabled="true"
+              name="{{item.nombrePregunta}}" [(ngModel)]="item.nombrePregunta">
+
+            </div>
+      
+            <br>
+            <h1>Respuestas Pregunta {{i+1}}</h1>
+            <div *ngFor="let opc of getOpcionsPregunta(item.idPregunta) ; let j = index">
+             <p>Respuesta # {{j+1}}</p> 
+             <input type="checkbox" id="{{opc.nombreOpcion}}{{j}}" class="form-control" id="{{opc.nombreOpcion}}"  
+              name="{{opc.nombreOpcion}}" (change)="onChange(item,opc, i, j)">
+              <label for="{{opc.nombreOpcion}}{{j}}" >{{opc.nombreOpcion}}</label>
+            </div>
+      
+            <br>
+          </div>
+      
+          </form>
+      </div>
+</div>
+

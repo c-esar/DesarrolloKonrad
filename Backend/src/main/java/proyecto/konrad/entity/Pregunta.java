@@ -48,84 +48,9 @@ public class Pregunta extends utilMensaje implements Serializable {
 	@Column(name="NOMBRE_PREGUNTA")
 	private String nombrePregunta;
 	 
-	@JsonIgnoreProperties("pregunta")
 	@ManyToOne
     @JoinColumn(name="ID_FORMULARIO")
     private Formulario formulario;
-	
-//	@JsonIgnore
-//	@OneToMany(mappedBy="idOpcion")
-//    private Set<Opcion> opcion;
-	
-//    public void addOpcion(Opcion opci) {
-//    	opcion.add(opci);
-//    	opci.setIdPregunta(this);
-//    }
-//    public void removePregunta(Opcion opci) {
-//    	opcion.remove(opci);
-//    	opci.setIdPregunta(null);
-//    }
-    
-	
-
-
-
-	public Long getIdPregunta() {
-		return idPregunta;
-	}
-
-
-
-
-
-
-	public void setIdPregunta(Long idPregunta) {
-		this.idPregunta = idPregunta;
-	}
-
-
-
-
-
-
-	public String getNombreOpcion() {
-		return nombrePregunta;
-	}
-
-
-
-
-
-
-	public void setNombreOpcion(String nombreOpcion) {
-		this.nombrePregunta = nombreOpcion;
-	}
-
-
-
-
-
-
-	public Formulario getIdFormulario() {
-		return formulario;
-	}
-
-
-
-
-
-
-	public void setIdFormulario(Formulario formulario) {
-		this.formulario = formulario;
-	}
-
-
-	public Pregunta(String nombreOpcion, Formulario idFormulario, Set<Opcion> opcion) {
-		super();
-		this.nombrePregunta = nombreOpcion;
-		this.formulario = idFormulario;
-	}
-
 
 
 	private static final long serialVersionUID = 1L;

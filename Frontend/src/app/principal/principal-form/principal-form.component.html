@@ -2,8 +2,9 @@
     <nav class="dropdownmenu">
       <ul>
         <li><a routerLink="/registro">Usuarios/Registro</a></li>
-        <li><a routerLink="/formulario">Formularios</a></li>
-        <li><a routerLink="/inicio">Formularios Guardados</a></li>
+        <li><a routerLink="/formulario" *ngIf="usuario.rol == 'ADM'">Formularios</a></li>
+        <li><a routerLink="/formulariosGuardado" *ngIf="usuario.rol == 'ADM'" >Formularios guardados</a></li>
+        <li><a routerLink="/formulariosRealizar" *ngIf="usuario.rol == 'USU'" >Formularios realizar</a></li>
         <li><a (click)="salir()">Salir</a></li>
       </ul>
     </nav>

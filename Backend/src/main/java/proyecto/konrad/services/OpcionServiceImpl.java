@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import proyecto.konrad.entity.Formulario;
 import proyecto.konrad.entity.Opcion;
+import proyecto.konrad.entity.Pregunta;
 import proyecto.konrad.repository.IOpcionRepository;
 @Service
 public class OpcionServiceImpl implements IOpcionService {
@@ -28,11 +30,25 @@ public class OpcionServiceImpl implements IOpcionService {
 	@Override
 	public Object findById(Long id) {
 		try {
-			iOpcionRepository.findById(id);
-			return Optional.ofNullable("Sin resultados");
+			Optional<?> temp = iOpcionRepository.findById(id);
+			if(temp.isPresent()) {
+				return temp.get();
+			}else {
+				return new Formulario("Error al buscar", false);
+			}
+		} catch (Exception e) {
+			return new Formulario("Error " + e.getMessage(), false);
+		} 	
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Object findAllByPregunta(Long id) {
+		try {
+			return (List<Opcion>) iOpcionRepository.findAllByPreguntaIdPregunta(id);
 		} catch (Exception e) {
 			return new String("Error " + e.getMessage());
-		} 
+		}
 	}
 
 	@Override
@@ -67,6 +83,17 @@ public class OpcionServiceImpl implements IOpcionService {
 	public Object delete(Long id) {
 		try {
 			iOpcionRepository.deleteById(id);
+			return Boolean.TRUE;
+		} catch (Exception e) {
+			return new String("Error " + e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public Object deleteByPregunta(Long id) {
+		try {
+			iOpcionRepository.deleteByPreguntaIdPregunta(id);
 			return Boolean.TRUE;
 		} catch (Exception e) {
 			return new String("Error " + e.getMessage());

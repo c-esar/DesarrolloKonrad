@@ -10,6 +10,8 @@ import { RegistroFormComponent } from './registroUsuarios/registro-form/registro
 import { PrincipalFormComponent } from './principal/principal-form/principal-form.component';
 import { FormularioFormComponent } from './formulario/formulario-form/formulario-form.component';
 import { PreguntaFormComponent } from './pregunta/pregunta-form/pregunta-form.component';
+import { FormularioUsuarioFormComponent } from './formularioUsuario/formulario-usuario-form/formulario-usuario-form.component';
+import { FormularioGuardadoFormComponent } from './formularioGuardado/formulario-guardado-form/formulario-guardado-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +19,9 @@ import { PreguntaFormComponent } from './pregunta/pregunta-form/pregunta-form.co
     RegistroFormComponent,
     PrincipalFormComponent,
     FormularioFormComponent,
-    PreguntaFormComponent
+    PreguntaFormComponent,
+    FormularioUsuarioFormComponent,
+    FormularioGuardadoFormComponent
   ],
   imports: [
     BrowserModule,

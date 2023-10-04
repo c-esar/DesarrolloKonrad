@@ -1,0 +1,47 @@
+
+<app-principal-form></app-principal-form>
+<div *ngIf="paramId == null && paramUsu == null">
+    <table>
+      <tr>
+        <th>Nombre Formulario</th>
+        <th>Usuario</th>
+        <th>Ver formulario</th>
+      </tr>
+      <tr *ngFor="let item of formularios">
+        <td>{{item.idFormulario.nombreFormulario}}</td>
+        <td>{{item.idUsuario.usuario}}</td>
+        <td><button class="btn-login" [routerLink]="['/formulariosGuardado',item.formulario, item.usuario]">Ver</button></td>
+      </tr>
+    </table>
+</div>
+
+
+<div class="testbox" *ngIf="paramId != null && paramUsu != null">
+    <h1>Ver formulario</h1>
+    <form>
+    
+      <h1>Formulario Nombre: {{formulariosMostrar[0].idFormulario.nombreFormulario}}</h1>
+      <h1>Usuario Nombre: {{formulariosMostrar[0].idUsuario.nombreUsuario}}</h1>
+
+
+      <div *ngFor="let item of formulariosMostrar; ; let i = index">
+  
+        
+        <h1>Pregunta {{i+1}}</h1>
+        <div>
+          <input type="text" class="form-control" id="{{item.idPregunta.nombrePregunta}}"  disabled="true"
+          name="{{item.idPregunta.nombrePregunta}}" [(ngModel)]="item.idPregunta.nombrePregunta">
+        </div>
+  
+        <br>
+        <h1>Respuestas Pregunta {{i+1}}</h1>
+        <div >
+         <input type="text" class="form-control" id="{{item.idOpcionPregunta.nombreOpcion}}"  disabled="true"
+          name="{{item.idOpcionPregunta.nombreOpcion}}" [(ngModel)]="item.idOpcionPregunta.nombreOpcion">
+        </div>
+  
+        <br>
+      </div>
+  
+      </form>
+  </div>

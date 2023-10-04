@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proyecto.konrad.entity.Formulario;
 import proyecto.konrad.services.IFormularioService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200","*" })
 @RestController
 @RequestMapping("/formulario")
 public class FormularioController {

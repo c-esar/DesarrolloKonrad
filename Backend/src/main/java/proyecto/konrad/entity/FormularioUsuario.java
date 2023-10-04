@@ -1,6 +1,7 @@
 package proyecto.konrad.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,20 +36,28 @@ public class FormularioUsuario extends utilMensaje implements Serializable {
 	@Column(name="ID_FORMULARIO_USUARIO")
 	private Long idFormularioUsuario;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_FORMULARIO", nullable=false)
+	@Column(name="ID_FORMULARIO")
+    private Long formulario;
+	
+	@Column(name="ID_USUARIO")
+    private Long usuario;
+	
+	@Column(name="ID_PREGUNTA")
+    private Long pregunta;
+	
+	@Column(name="ID_OPCION_PREGUNTA")
+    private Long opcionPregunta;
+	
+	@Transient
     private Formulario idFormulario;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_USUARIO", nullable=false)
+	@Transient
     private Usuario idUsuario;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_PREGUNTA", nullable=false)
+	@Transient
     private Pregunta idPregunta;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_OPCION_PREGUNTA", nullable=false)
+	@Transient
     private Opcion idOpcionPregunta;
 	
 	
@@ -58,52 +69,4 @@ public class FormularioUsuario extends utilMensaje implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	public Long getIdFormularioUsuario() {
-		return idFormularioUsuario;
-	}
-
-
-	public void setIdFormularioUsuario(Long idFormularioUsuario) {
-		this.idFormularioUsuario = idFormularioUsuario;
-	}
-
-
-	public Formulario getIdFormulario() {
-		return idFormulario;
-	}
-
-
-	public void setIdFormulario(Formulario idFormulario) {
-		this.idFormulario = idFormulario;
-	}
-
-
-	public Usuario getIdUsuario() {
-		return idUsuario;
-	}
-
-
-	public void setIdUsuario(Usuario idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-
-	public Pregunta getIdPregunta() {
-		return idPregunta;
-	}
-
-
-	public void setIdPregunta(Pregunta idPregunta) {
-		this.idPregunta = idPregunta;
-	}
-
-
-	public Opcion getIdOpcionPregunta() {
-		return idOpcionPregunta;
-	}
-
-
-	public void setIdOpcionPregunta(Opcion idOpcionPregunta) {
-		this.idOpcionPregunta = idOpcionPregunta;
-	}
 }

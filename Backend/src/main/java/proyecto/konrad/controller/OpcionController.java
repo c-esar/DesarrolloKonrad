@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proyecto.konrad.entity.Opcion;
 import proyecto.konrad.services.IOpcionService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200","*" })
 @RestController
 @RequestMapping("/opcion")
 public class OpcionController {
@@ -26,8 +26,13 @@ public class OpcionController {
 	}
 	
 	@GetMapping("/byId/{id}")
-	public Object findById(@PathVariable Long idOpcion) {
-		return iOpcionService.findById(idOpcion);
+	public Object findById(@PathVariable String id) {
+		return iOpcionService.findById(Long.parseLong(id));
+	}
+	
+	@GetMapping("/byIdPregunta/{id}")
+	public Object findByPregunta(@PathVariable String id) {
+		return iOpcionService.findAllByPregunta(Long.parseLong(id));
 	}
 	
 	@PostMapping("/save")
@@ -41,8 +46,12 @@ public class OpcionController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public Object delete(@PathVariable Long idOpcion) {
-		return iOpcionService.delete(idOpcion);
+	public Object delete(@PathVariable String id) {
+		return iOpcionService.delete(Long.parseLong(id)); 
 	}
 
+	@DeleteMapping("/deleteByPregunta/{id}")
+	public Object deleteByPregunta(@PathVariable String id) {
+		return iOpcionService.deleteByPregunta(Long.parseLong(id));
+	}
 }

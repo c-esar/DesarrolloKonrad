@@ -25,8 +25,8 @@ findByIdPregunta(pregunta: String): Observable<Pregunta> {
   return this.httpClient.get<Pregunta>(`${this.backendURL}/byId/${pregunta}`);
 }
 
-findByIdFormulario(idFormulario: String): Observable<Pregunta> {
-  return this.httpClient.get<Pregunta>(`${this.backendURL}/byFormulario/${idFormulario}`);
+findByIdFormulario(idFormulario: String): Observable<Pregunta[]> {
+  return this.httpClient.get<Pregunta[]>(`${this.backendURL}/byFormulario/${idFormulario}`);
 }
 
 createPregunta(pregunta: Pregunta): Observable<Pregunta>{
@@ -36,4 +36,9 @@ createPregunta(pregunta: Pregunta): Observable<Pregunta>{
 updatePregunta(pregunta: Pregunta): Observable<Pregunta>{
   return this.httpClient.put<Pregunta>(`${this.backendURL}/update`, pregunta);
 }
+
+delete(id: String): Observable<Boolean>{
+  return this.httpClient.delete<Boolean>(`${this.backendURL}/delete/${id}`);
+}
+
 }

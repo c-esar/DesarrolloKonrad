@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proyecto.konrad.entity.Usuario;
 import proyecto.konrad.services.IUsuarioService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200" ,"*"})
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {

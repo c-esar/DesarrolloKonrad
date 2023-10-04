@@ -40,54 +40,9 @@ public class Opcion extends utilMensaje implements Serializable {
 	@Column(name="DESCRIPCION_OPCION")
 	private String nombreOpcion;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Pregunta", nullable=false)
-    private Pregunta idPregunta;
-	
-
-	public Long getIdOpcion() {
-		return idOpcion;
-	}
-
-
-
-
-
-	public void setIdOpcion(Long idOpcion) {
-		this.idOpcion = idOpcion;
-	}
-
-
-
-
-
-	public String getNombreOpcion() {
-		return nombreOpcion;
-	}
-
-
-
-
-
-	public void setNombreOpcion(String nombreOpcion) {
-		this.nombreOpcion = nombreOpcion;
-	}
-
-
-
-
-
-	public Pregunta getIdPregunta() {
-		return idPregunta;
-	}
-
-
-
-
-
-	public void setIdPregunta(Pregunta idPregunta) {
-		this.idPregunta = idPregunta;
-	}
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_Pregunta",nullable = false)
+    private Pregunta pregunta;
 
 
 	private static final long serialVersionUID = 1L;

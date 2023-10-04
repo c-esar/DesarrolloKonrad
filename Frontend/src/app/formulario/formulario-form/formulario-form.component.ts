@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { Formulario } from 'src/app/entity/formulario';
+import { Opcion } from 'src/app/entity/opcion';
 import { Pregunta } from 'src/app/entity/pregunta';
 import { FormularioService } from 'src/app/servicio/formulario.service';
+import { OpcionService } from 'src/app/servicio/opcion.service';
 import { PreguntaService } from 'src/app/servicio/pregunta.service';
 
 @Component({
@@ -17,20 +20,34 @@ export class FormularioFormComponent implements OnInit {
   public editarBoolean: Boolean | any;
   public crearBoolean: Boolean | any;
   public paramId: string | any = null;
+  public accion: string | any = null;
   public preguntas: Pregunta[] | any;
-  constructor(private router: Router, private formularioService: FormularioService, private _router: ActivatedRoute, private preguntaService: PreguntaService) {
+  public seBoolean: Boolean | any = false;
+
+  public seFormulario: Formulario | any;
+  public sePregunta: Pregunta[] = new Array();
+  public seOpcion: Opcion[] = new Array();
+
+  constructor(private router: Router, private formularioService: FormularioService, private _router: ActivatedRoute, private preguntaService: PreguntaService,
+    private opcionService: OpcionService) {
     this.formulario = new Formulario();
   }
 
   ngOnInit(): void {
     this.getParamURL();
-    if (this.paramId != null) {
-      this.editarBoolean = true;
-      this.getById();
+    if (this.accion == "VER") {
+      this.seBoolean = true;
+      this.seForm();
     } else {
-      this.editarBoolean = false;
-      this.getByAllForm();
+      if (this.paramId != null) {
+        this.editarBoolean = true;
+        this.getById();
+      } else {
+        this.editarBoolean = false;
+        this.getByAllForm();
+      }
     }
+
 
   }
 
@@ -50,13 +67,14 @@ export class FormularioFormComponent implements OnInit {
     );
     this.preguntaService.findByIdFormulario(this.paramId).subscribe(
       userData => {
-        this.preguntas = userData
+        this.preguntas = userData;
       }
     );
   }
 
   getParamURL() {
     this.paramId = this._router.snapshot.paramMap.get('id');
+    this.accion = this._router.snapshot.paramMap.get('act');
   }
 
   createForm() {
@@ -68,16 +86,65 @@ export class FormularioFormComponent implements OnInit {
           this.editarBoolean = false;
           this.getByAllForm();
           this.formulario = new Formulario();
+          this.router.navigate(['/inicio']);
         } else {
-           alert(userData.utils?.mensaje);
+          alert(userData.utils?.mensaje);
         }
       }
     );
+  }
+
+  eliminarOpcion(id: number | any) {
+    this.preguntaService.delete(this.preguntas[id].idPregunta).subscribe(
+      userData => {
+        if (userData) {
+          this.preguntas.splice(id, 1);
+        }
+      }
+    );
+
   }
 
   crearFormNuevo() {
     this.crearBoolean = true;
     this.editarBoolean = true;
   }
+
+  seForm() {
+    this.preguntaService.findByIdFormulario(this.paramId).pipe(finalize(() => this.seOpcions())).subscribe(
+      userData => {
+        if (userData != null) {
+          this.sePregunta = userData;
+        }
+      }
+    );
+  }
+
+  seOpcions() {
+    for (var i = 0; i < this.sePregunta.length; i++) {
+      this.opcionService.findByIdPregunta(this.sePregunta[i].idPregunta).subscribe(
+        userData => {
+          debugger
+          if (userData != null) {
+            for (var j = 0; j < userData.length; j++) {
+            this.seOpcion.push(userData[j]);
+            }
+          }
+        }
+      );
+    }
+  }
+
+  getOpcionsPregunta(id: number): Opcion[]{
+    debugger
+    var temp : Opcion[] =[];
+    for (var i = 0; i < this.seOpcion.length; i++) {
+      if(this.seOpcion[i].pregunta.idPregunta == id){
+        temp.push(this.seOpcion[i]);
+      }
+    }
+    return temp;
+  }
+
 }
 

@@ -13,82 +13,102 @@ import { PreguntaService } from 'src/app/servicio/pregunta.service';
 })
 export class PreguntaFormComponent implements OnInit {
 
-  public pregunta : Pregunta | any;
-  public opcionBoolean : Boolean | any;
-  public opcionEditarBoolean : Boolean | any;
-  opcions : Opcion[] = [];
-  public opcion : Opcion | any;
-  public opcionEditar : Opcion | any;
-  public valSeled : number | any;
+  public pregunta: Pregunta | any;
+  public opcionBoolean: Boolean | any;
+  public opcionEditarBoolean: Boolean | any;
+  public opcions: Opcion[] = [];
+  public opcion: Opcion | any;
+  public opcionEditar: Opcion | any;
+  public valSeled: number | any;
   public paramIdFormulario: string | any = null;
-  constructor(private router: Router, private preguntaService: PreguntaService, private _router : ActivatedRoute,
-    private opcionService: OpcionService) { 
+  public paramIdPregunta: string | any = null;
+  constructor(private router: Router, private preguntaService: PreguntaService, private _router: ActivatedRoute,
+    private opcionService: OpcionService) {
     this.pregunta = new Pregunta();
     this.opcion = new Opcion();
     this.opcionEditar = new Opcion();
     this.opcions = [];
-    
+
   }
 
   ngOnInit(): void {
     this.getParamURL();
+    if (this.paramIdPregunta != null) {
+      this.getOpcionPregun();
+    }
   }
 
 
-  async createPregun(){
-    debugger
+  async createPregun() {
     for (var i = 0; i < this.opcions.length; i++) {
-      this.opcions[i].idPregunta.idPregunta = this.pregunta.idPregunta;
-      this.opcions[i].idPregunta.formulario.idFormulario = this.paramIdFormulario;
+      this.opcions[i].pregunta.idPregunta = this.pregunta.idPregunta;
+      this.opcions[i].pregunta.formulario.idFormulario = this.paramIdFormulario;
       this.opcionService.createOpcion(this.opcions[i]).subscribe(
-        //Arrow function, funcion anónima similar a expersiones Lambda
         userData => {
-          debugger
           if (userData.idOpcion != null) {
-           
+
           } else {
-             //alert(userData.utils?.mensaje);
+            alert(userData.utils?.mensaje);
           }
         }
       );
-     }
-     this.router.navigate(['/formulario']);
+    }
+    this.router.navigate(['/formulario']);
   }
 
-  async cratePreguns(){
+  async deleteOpcions() {
+    this.cratePreguns();
+  }
+  async cratePreguns() {
     this.pregunta.formulario.idFormulario = this.paramIdFormulario;
-    this.preguntaService.createPregunta(this.pregunta).pipe(finalize( () => this.createPregun()))
-    .subscribe(
-      userData => {
-        debugger
-        if (userData.idPregunta != null) {
-         this.pregunta = userData
-        } else {
-          // alert(userData.utils?.mensaje);
-        }
-      });
+    this.preguntaService.createPregunta(this.pregunta).pipe(finalize(() => this.createPregun()))
+      .subscribe(
+        userData => {
+          if (userData.idPregunta != null) {
+            this.pregunta = userData
+          } else {
+            alert(userData.utils?.mensaje);
+          }
+        });
+
   }
 
-  createOpcion(){
+  getOpcionPregun() {
+    this.opcionService.findByIdPregunta(this.paramIdPregunta).pipe(finalize(() => this.getPregun()))
+      .subscribe(
+        userData => {
+          if (userData != null) {
+            this.opcions = userData
+          } else {
+            alert("Error desconocido");
+          }
+        });
+  }
+
+  createOpcion() {
     this.opcionBoolean = true;
     this.opcionEditarBoolean = false;
   }
 
-  editarOpcion(id: number | any){
+  editarOpcion(id: number | any) {
     this.valSeled = id;
     this.opcionEditarBoolean = true;
     this.opcionBoolean = false;
-   // this.opcionEditar = this.opcions[id];
+    //this.opcionEditar = this.opcions[id];
 
   }
 
-  eliminarOpcion(id: number | any){
-    this.opcions.splice(this.valSeled, 1);
-
+  eliminarOpcion(id: number | any) {
+    this.opcionService.delete(this.opcions[id].idOpcion).subscribe(
+      userData => {
+        if (userData) {
+          this.opcions.splice(id, 1);
+        }
+      }
+    );
   }
 
-  editarOpcionForm(){
-    debugger
+  editarOpcionForm() {
     this.opcions.splice(this.valSeled, 1);
     this.opcions.push(this.opcionEditar);
     this.opcionEditar = new Opcion();
@@ -96,7 +116,7 @@ export class PreguntaFormComponent implements OnInit {
     this.opcionEditarBoolean = false;
   }
 
-  createOpcionBack(){
+  createOpcionBack() {
     this.opcions.push(this.opcion);
     this.opcion = new Opcion();
     this.opcionBoolean = false;
@@ -104,7 +124,20 @@ export class PreguntaFormComponent implements OnInit {
   }
 
   getParamURL() {
-    this.paramIdFormulario = this._router.snapshot.paramMap.get('id');
+    this.paramIdFormulario = this._router.snapshot.paramMap.get('idForm');
+    this.paramIdPregunta = this._router.snapshot.paramMap.get('id');
+  }
+
+  getPregun() {
+    this.preguntaService.findByIdPregunta(this.paramIdPregunta)
+      .subscribe(
+        userData => {
+          if (userData.idPregunta != null) {
+            this.pregunta = userData
+          } else {
+            alert(userData.utils?.mensaje);
+          }
+        });
   }
 
 }

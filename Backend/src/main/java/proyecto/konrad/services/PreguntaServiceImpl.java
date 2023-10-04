@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import proyecto.konrad.entity.Formulario;
 import proyecto.konrad.entity.Pregunta;
 
 import proyecto.konrad.repository.IPreguntaRepository;
@@ -39,11 +41,15 @@ public class PreguntaServiceImpl implements IPreguntaService {
 	@Override
 	public Object findById(Long id) {
 		try {
-			iPreguntaRepository.findById(id);
-			return Optional.ofNullable("Sin resultados");
+			Optional<?> temp = iPreguntaRepository.findById(id);
+			if(temp.isPresent()) {
+				return temp.get();
+			}else {
+				return new Formulario("Error al buscar", false);
+			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
-		} 
+			return new Formulario("Error " + e.getMessage(), false);
+		} 	
 	}
 
 	@Override

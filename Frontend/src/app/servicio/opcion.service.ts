@@ -26,6 +26,10 @@ findByIdOpcion(opcion: String): Observable<Opcion> {
   return this.httpClient.get<Opcion>(`${this.backendURL}/byId/${opcion}`);
 }
 
+findByIdPregunta(opcion: String): Observable<Opcion[]> {
+  return this.httpClient.get<Opcion[]>(`${this.backendURL}/byIdPregunta/${opcion}`);
+}
+
 createOpcion(opcion: Opcion): Observable<Opcion>{
   return this.httpClient.post<Opcion>(`${this.backendURL}/save`, opcion);
 }
@@ -33,4 +37,13 @@ createOpcion(opcion: Opcion): Observable<Opcion>{
 updateOpcion(opcion: Opcion): Observable<Opcion>{
   return this.httpClient.put<Opcion>(`${this.backendURL}/update`, opcion);
 }
+
+deleteByPregunta(id: String){
+  return this.httpClient.delete(`${this.backendURL}/deleteByPregunta/${id}`);
+}
+
+delete(id: String): Observable<Boolean>{
+  return this.httpClient.delete<Boolean>(`${this.backendURL}/delete/${id}`);
+}
+
 }

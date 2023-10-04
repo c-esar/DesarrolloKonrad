@@ -9,6 +9,7 @@ public interface IFormularioUsuarioService {
 	public Object save(FormularioUsuario formularioUsuario);
 	public Object update(FormularioUsuario formularioUsuario);
 	public Object delete(Long id);
+	Object findAllByFormularioAndUsuario(Long formulario, Long usuario);
 	
 
 }

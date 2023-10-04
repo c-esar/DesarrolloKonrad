@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proyecto.konrad.entity.FormularioUsuario;
 import proyecto.konrad.services.IFormularioUsuarioService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200", "*" })
 @RestController
 @RequestMapping("/formularioUsuario")
 public class FormularioUsuarioController {
@@ -24,6 +24,11 @@ public class FormularioUsuarioController {
 	@GetMapping("/all")
 	public Object finadAll() {
 		return formularioUsuarioService.findAll();
+	}
+	
+	@GetMapping("/allFinally/{from}/{usu}")
+	public Object finadAllFinally(@PathVariable String from, @PathVariable String usu) {
+		return formularioUsuarioService.findAllByFormularioAndUsuario(Long.parseLong(from), Long.parseLong(usu));
 	}
 	
 	@GetMapping("/byId/{id}")

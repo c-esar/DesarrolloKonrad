@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import proyecto.konrad.entity.Pregunta;
 import proyecto.konrad.services.IPreguntaService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200","*" })
 @RestController
 @RequestMapping("/pregunta")
 public class PreguntaController {
@@ -27,8 +27,8 @@ public class PreguntaController {
 	}
 	
 	@GetMapping("/byId/{id}")
-	public Object findById(@PathVariable Long idPregunta) {
-		return iPreguntaService.findById(idPregunta);
+	public Object findById(@PathVariable String id) {
+		return iPreguntaService.findById(Long.parseLong(id));
 	}
 	
 	@GetMapping("/byFormulario/{id}")
@@ -47,8 +47,8 @@ public class PreguntaController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public Object delete(@PathVariable Long idPregunta) {
-		return iPreguntaService.delete(idPregunta);
+	public Object delete(@PathVariable String id) {
+		return iPreguntaService.delete(Long.parseLong(id));
 	}
 
 }
