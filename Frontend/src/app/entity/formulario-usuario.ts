@@ -4,7 +4,7 @@ import { Pregunta } from "./pregunta";
 import { Usuario } from "./usuario";
 import { Utils } from "./utils";
 
-export class FormularioUsuario {
+export class FormularioUsuario extends Utils{
 idFormularioUsuario : number | any;
 idFormulario : Formulario | any;
 idUsuario: Usuario | any;
@@ -14,12 +14,9 @@ formulario : number | any;
 usuario: number | any;
 pregunta : number | any;
 opcionPregunta: number | any;
-utils: Utils | any;
 
-
-constructor(_usu: Usuario){
-    this.idFormulario = new Formulario();
-    this.idUsuario = _usu;
+constructor(){
+super();
 }
 
 }

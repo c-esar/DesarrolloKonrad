@@ -29,11 +29,20 @@ export class FormularioUsuarioService {
    return this.httpClient.get<FormularioUsuario>(`${this.backendURL}/byId/${from}`);
  }
 
- createForm(from: FormularioUsuario): Observable<FormularioUsuario>{
-   return this.httpClient.post<FormularioUsuario>(`${this.backendURL}/save`, from);
+ createForm(from: FormularioUsuario[]): Observable<any>{
+   return this.httpClient.post<any>(`${this.backendURL}/save`, from);
  }
 
  updateForm(from: FormularioUsuario): Observable<FormularioUsuario>{
    return this.httpClient.put<FormularioUsuario>(`${this.backendURL}/update`, from);
  }
+
+ delete(id: String): Observable<Boolean>{
+  return this.httpClient.delete<Boolean>(`${this.backendURL}/delete/${id}`);
+ }
+
+ deleteByFormAndUser(idForm: String, iUser: String): Observable<Boolean>{
+  return this.httpClient.delete<Boolean>(`${this.backendURL}/deleteByFormAndUser/${idForm}/${iUser}`);
+ }
+
 }

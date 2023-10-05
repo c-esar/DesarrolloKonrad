@@ -26,30 +26,30 @@ public class UsuarioController {
 	public Object finadAll() {
 		return iUsuarioService.findAll();
 	}
-	
+
 	@GetMapping("/byUsuario/{usuario}")
 	public Object finadAll(@PathVariable String usuario) {
 		return iUsuarioService.findByUsuario(usuario);
 	}
-	
+
 	@GetMapping("/byId/{id}")
 	public Object findById(@PathVariable String id) {
 		return iUsuarioService.findById(Long.parseLong(id));
 	}
-	
+
 	@PostMapping("/save")
 	public Object save(@RequestBody Usuario usuario) {
 		return iUsuarioService.save(usuario);
 	}
-	
+
 	@PutMapping("/update")
 	public Object update(@RequestBody Usuario usuario) {
 		return iUsuarioService.update(usuario);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public Object delete(@PathVariable Long idUsuario) {
-		return iUsuarioService.delete(idUsuario);
+	public Object delete(@PathVariable Long id) {
+		return iUsuarioService.delete(id);
 	}
 
 

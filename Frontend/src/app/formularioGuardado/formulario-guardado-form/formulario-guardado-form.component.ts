@@ -57,4 +57,14 @@ export class FormularioGuardadoFormComponent implements OnInit {
     this.paramId = this._router.snapshot.paramMap.get('idForm');
     this.paramUsu = this._router.snapshot.paramMap.get('idUsu');
   }
+
+  deleteFormResp(idForm: String, idUser: String, pos: number){
+    this.formularioService.deleteByFormAndUser(idForm,idUser).subscribe(
+      userData => {
+        if (userData) {
+          this.formularios.splice(pos, 1);
+        }
+      }
+    );
+  }
 }

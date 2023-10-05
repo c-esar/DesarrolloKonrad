@@ -48,7 +48,7 @@ export class PreguntaFormComponent implements OnInit {
           if (userData.idOpcion != null) {
 
           } else {
-            alert(userData.utils?.mensaje);
+            alert(userData.mensaje);
           }
         }
       );
@@ -67,7 +67,7 @@ export class PreguntaFormComponent implements OnInit {
           if (userData.idPregunta != null) {
             this.pregunta = userData
           } else {
-            alert(userData.utils?.mensaje);
+            alert(userData.mensaje);
           }
         });
 
@@ -135,7 +135,7 @@ export class PreguntaFormComponent implements OnInit {
           if (userData.idPregunta != null) {
             this.pregunta = userData
           } else {
-            alert(userData.utils?.mensaje);
+            alert(userData.mensaje);
           }
         });
   }

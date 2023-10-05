@@ -59,14 +59,14 @@ export class RegistroFormComponent implements OnInit {
         //Arrow function, funcion anónima similar a expersiones Lambda
         userData => {
           if(userData.idUsuario != null){
-            if(this.usuarioSesion.rol == 'USU'){
+            if(this.usuarioSesion.rol == 'ADM'){
               this.router.navigate(['/inicio']);
             }else{
               this.router.navigate(['/registro']);
             }
             
           }else{
-            alert(userData.utils?.mensaje);
+            alert(userData.mensaje);
           }   
         }
       );
@@ -84,10 +84,15 @@ export class RegistroFormComponent implements OnInit {
       this.usuarioService.createUser(this.usuario).subscribe(
         //Arrow function, funcion anónima similar a expersiones Lambda
         userData => {
+          debugger
           if(userData.idUsuario != null){
-            this.router.navigate(['/login']);
+            if(this.usuarioSesion.rol == 'ADM'){
+              this.router.navigate(['/inicio']);
+            }else{
+              this.router.navigate(['/login']);
+            }
           }else{
-            alert(userData.utils?.mensaje);
+            alert(userData.mensaje);
           }   
         }
       );

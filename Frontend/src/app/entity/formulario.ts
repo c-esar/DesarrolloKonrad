@@ -1,9 +1,11 @@
 import { Pregunta } from "./pregunta";
 import { Utils } from "./utils";
 
-export class Formulario {
+export class Formulario extends Utils{
     idFormulario: number | any;
     nombreFormulario: string | any;
-    utils: Utils | any;
-    constructor(){}
+    userFrom: Boolean | any;
+    constructor(){
+        super();
+    }
 }

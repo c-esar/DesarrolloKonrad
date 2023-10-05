@@ -6,11 +6,13 @@
         <th>Nombre Formulario</th>
         <th>Acción</th>
         <th>Ver formulario</th>
+        <th>Accion</th>
       </tr>
-      <tr *ngFor="let item of formularios">
+      <tr *ngFor="let item of formularios;let i = index">
         <td>{{item.nombreFormulario}}</td>
         <td><button class="btn-login" [routerLink]="['/formulario',item.idFormulario, 'NO']">Editar</button></td>
         <td><button class="btn-login" [routerLink]="['/formulario',item.idFormulario, 'VER']">Ver</button></td>
+        <td><button class="btn-login" (click)="deleteForm(i)">Eliminar</button></td>
       </tr>
     </table>
 </div>
@@ -31,7 +33,7 @@
             <th>Acción</th>
             <th>Acción</th>
           </tr>
-          <tr *ngFor="let item of preguntas; ; let i = index">
+          <tr *ngFor="let item of preguntas; let i = index">
             <td>{{item.nombrePregunta}}</td>
             <td><button class="btn-login" [routerLink]="['/pregunta',item.idPregunta,formulario.idFormulario]">Editar</button></td>
             <td><button class="btn-login" (click)="eliminarOpcion(i)">Eliminar</button></td>

@@ -7,7 +7,10 @@
       </tr>
       <tr *ngFor="let item of formularios">
         <td>{{item.nombreFormulario}}</td>
-        <td><button class="btn-login" [routerLink]="['/formulariosRealizar',item.idFormulario]">Realizar</button></td>
+        <td>
+          <button *ngIf="item.userFrom == false" class="btn-login" [routerLink]="['/formulariosRealizar',item.idFormulario]">Realizar</button>
+          <p *ngIf="item.userFrom">Formulario completo</p>
+        </td>
       </tr>
     </table>
 </div>
@@ -28,8 +31,7 @@
       
             <br>
             <h1>Respuestas Pregunta {{i+1}}</h1>
-            <div *ngFor="let opc of getOpcionsPregunta(item.idPregunta) ; let j = index">
-             <p>Respuesta # {{j+1}}</p> 
+            <div class="accounttype" style="display: table-cell;" *ngFor="let opc of getOpcionsPregunta(item.idPregunta) ; let j = index">
              <input type="checkbox" id="{{opc.nombreOpcion}}{{j}}" class="form-control" id="{{opc.nombreOpcion}}"  
               name="{{opc.nombreOpcion}}" (change)="onChange(item,opc, i, j)">
               <label for="{{opc.nombreOpcion}}{{j}}" >{{opc.nombreOpcion}}</label>
@@ -37,7 +39,7 @@
       
             <br>
           </div>
-      
+          <button class="btn-login" (click)="saveForm()">Realizar</button>
           </form>
       </div>
 </div>

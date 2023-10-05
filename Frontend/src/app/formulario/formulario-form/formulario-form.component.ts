@@ -88,7 +88,7 @@ export class FormularioFormComponent implements OnInit {
           this.formulario = new Formulario();
           this.router.navigate(['/inicio']);
         } else {
-          alert(userData.utils?.mensaje);
+          alert(userData.mensaje);
         }
       }
     );
@@ -144,6 +144,17 @@ export class FormularioFormComponent implements OnInit {
       }
     }
     return temp;
+  }
+
+  deleteForm(id:number){
+    this.formularioService.delete(this.formularios[id].idFormulario).subscribe(
+      //Arrow function, funcion anónima similar a expersiones Lambda
+      userData => {
+        if (userData) {
+          this.formularios.splice(id, 1);
+        }
+      }
+    );
   }
 
 }

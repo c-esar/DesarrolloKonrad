@@ -25,25 +25,30 @@ public class FormularioController {
 	public Object finadAll() {
 		return iFormularioService.findAll();
 	}
-	
+
+	@GetMapping("/byUser/{id}")
+	public Object findByUser(@PathVariable String id) {
+		return iFormularioService.findAllByUser(Long.parseLong(id));
+	}
+
 	@GetMapping("/byId/{id}")
 	public Object findById(@PathVariable String id) {
 		return iFormularioService.findById(Long.parseLong(id));
 	}
-	
+
 	@PostMapping("/save")
 	public Object save(@RequestBody Formulario formulario) {
 		return iFormularioService.save(formulario);
 	}
-	
+
 	@PostMapping("/update")
 	public Object update(@RequestBody Formulario formulario) {
 		return iFormularioService.update(formulario);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public Object delete(@PathVariable Long idFormulario) {
-		return iFormularioService.delete(idFormulario);
+	public Object delete(@PathVariable String id) {
+		return iFormularioService.delete(Long.parseLong(id));
 	}
 
 }

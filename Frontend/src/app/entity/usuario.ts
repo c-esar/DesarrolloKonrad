@@ -1,14 +1,14 @@
 import { Utils } from "./utils";
 
-export class Usuario {
+export class Usuario extends Utils{
 idUsuario: number | any ;
 nombreUsuario: string | any;
 usuario: string;
 contrasena: string;
 rol: string| any;
 correo: string| any;
-utils: Utils | any;
 constructor(){
+    super();
     this.usuario = "";
     this.contrasena ="";
 }

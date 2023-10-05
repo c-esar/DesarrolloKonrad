@@ -1,15 +1,12 @@
 package proyecto.konrad.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import proyecto.konrad.entity.Formulario;
 import proyecto.konrad.entity.Opcion;
-import proyecto.konrad.entity.Pregunta;
 import proyecto.konrad.repository.IOpcionRepository;
 @Service
 public class OpcionServiceImpl implements IOpcionService {
@@ -21,9 +18,9 @@ public class OpcionServiceImpl implements IOpcionService {
 	@Transactional(readOnly = true)
 	public Object findAll() {
 		try {
-			return (List<Opcion>) iOpcionRepository.findAll();
+			return iOpcionRepository.findAll();
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
 	}
 
@@ -34,20 +31,20 @@ public class OpcionServiceImpl implements IOpcionService {
 			if(temp.isPresent()) {
 				return temp.get();
 			}else {
-				return new Formulario("Error al buscar", false);
+				return new Opcion("Error al buscar", false);
 			}
 		} catch (Exception e) {
-			return new Formulario("Error " + e.getMessage(), false);
-		} 	
+			return new Opcion("Error al procesar la información", false);
+		}
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public Object findAllByPregunta(Long id) {
 		try {
-			return (List<Opcion>) iOpcionRepository.findAllByPreguntaIdPregunta(id);
+			return iOpcionRepository.findAllByPreguntaIdPregunta(id);
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
 	}
 
@@ -58,10 +55,10 @@ public class OpcionServiceImpl implements IOpcionService {
 			if(temp != null) {
 				return temp;
 			}else {
-				return new Exception("Error al guardar");
+				throw new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
 	}
 
@@ -72,33 +69,35 @@ public class OpcionServiceImpl implements IOpcionService {
 			if(temp != null) {
 				return temp;
 			}else {
-				return new Exception("Error al guardar");
+				throw new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
 	}
 
 	@Override
+	@Transactional
 	public Object delete(Long id) {
 		try {
 			iOpcionRepository.deleteById(id);
 			return Boolean.TRUE;
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
-		
+
 	}
-	
+
 	@Override
+	@Transactional
 	public Object deleteByPregunta(Long id) {
 		try {
 			iOpcionRepository.deleteByPreguntaIdPregunta(id);
 			return Boolean.TRUE;
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Opcion("Error al procesar la información", false);
 		}
-		
+
 	}
 
 }

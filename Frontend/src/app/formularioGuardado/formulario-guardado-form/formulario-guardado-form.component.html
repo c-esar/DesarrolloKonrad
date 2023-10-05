@@ -6,11 +6,13 @@
         <th>Nombre Formulario</th>
         <th>Usuario</th>
         <th>Ver formulario</th>
+        <th>Acción</th>
       </tr>
-      <tr *ngFor="let item of formularios">
+      <tr *ngFor="let item of formularios; let i = index">
         <td>{{item.idFormulario.nombreFormulario}}</td>
         <td>{{item.idUsuario.usuario}}</td>
         <td><button class="btn-login" [routerLink]="['/formulariosGuardado',item.formulario, item.usuario]">Ver</button></td>
+        <td><button class="btn-login" (click)="deleteFormResp(item.formulario, item.usuario,i)">Eliminar</button></td>
       </tr>
     </table>
 </div>
@@ -21,7 +23,7 @@
     <form>
     
       <h1>Formulario Nombre: {{formulariosMostrar[0].idFormulario.nombreFormulario}}</h1>
-      <h1>Usuario Nombre: {{formulariosMostrar[0].idUsuario.nombreUsuario}}</h1>
+      <h1>Usuario: {{formulariosMostrar[0].idUsuario.nombreUsuario}}</h1>
 
 
       <div *ngFor="let item of formulariosMostrar; ; let i = index">

@@ -20,6 +20,9 @@ export class FormularioService {
    return this.httpClient.get<Formulario[]>(`${this.backendURL}/all`);
  }
 
+ findAllByUser(id: String): Observable<Formulario[]> {
+  return this.httpClient.get<Formulario[]>(`${this.backendURL}/byUser/${id}`);
+}
 
  findByIdForm(formulario: String): Observable<Formulario> {
    return this.httpClient.get<Formulario>(`${this.backendURL}/byId/${formulario}`);
@@ -32,4 +35,8 @@ export class FormularioService {
  updateForm(formulario: Formulario): Observable<Formulario>{
    return this.httpClient.put<Formulario>(`${this.backendURL}/update`, formulario);
  }
+
+ delete(id: String): Observable<Boolean>{
+  return this.httpClient.delete<Boolean>(`${this.backendURL}/delete/${id}`);
+}
 }

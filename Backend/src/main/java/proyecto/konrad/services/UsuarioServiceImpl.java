@@ -1,6 +1,5 @@
 package proyecto.konrad.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Transactional(readOnly = true)
 	public Object findAll() {
 		try {
-			return (List<Usuario>) iUsuarioRepository.findAll();
+			return iUsuarioRepository.findAll();
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Usuario("Error al procesar la información", false);
 		}
 	}
 
@@ -33,13 +32,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			if(temp.isPresent()) {
 				return temp.get();
 			}else {
-				return new Usuario("Error al buscar", false);
+				throw new Exception("Error al buscar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
-		} 
+			return new Usuario("Error al procesar la información", false);
+		}
 	}
-	
+
 	@Override
 	public Object findByUsuario(String usuario) {
 		try {
@@ -47,12 +46,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			if(temp.isPresent()) {
 				return temp.get();
 			}else {
-				return new Usuario("Error al buscar", false);
+				throw new Exception("Error al buscar");
 			}
-			
+
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
-		} 
+			return new Usuario("Error al procesar la información", false);
+		}
 	}
 
 	@Override
@@ -62,10 +61,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			if(temp != null) {
 				return temp;
 			}else {
-				return new Usuario("Error al guardar", false);
+				throw new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new Usuario("Error " + e.getMessage(), false);
+			return new Usuario("Error al procesar la información", false);
 		}
 	}
 
@@ -79,7 +78,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 				return new Exception("Error al guardar");
 			}
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Usuario("Error al procesar la información", false);
 		}
 	}
 
@@ -89,9 +88,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			iUsuarioRepository.deleteById(id);
 			return Boolean.TRUE;
 		} catch (Exception e) {
-			return new String("Error " + e.getMessage());
+			return new Usuario("Error al procesar la información", false);
 		}
-		
+
 	}
 
 }

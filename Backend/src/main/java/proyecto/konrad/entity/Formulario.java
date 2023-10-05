@@ -1,22 +1,14 @@
 package proyecto.konrad.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,14 +27,17 @@ public class Formulario extends utilMensaje implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_FORMULARIO")
 	private Long idFormulario;
-	
+
 	@Column(name="NOMBRE_FORMULARIO")
 	private String nombreFormulario;
 
+	@Transient
+	private Boolean userFrom;
+
 	public Formulario() {
-		
+
 	}
-    
+
 	public Formulario(String mensaje, Boolean valor) {
 		this.setMensaje(mensaje);
 		this.setEstado(valor);

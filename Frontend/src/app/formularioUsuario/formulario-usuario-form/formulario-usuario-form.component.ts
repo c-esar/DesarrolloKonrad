@@ -6,6 +6,7 @@ import { FormularioUsuario } from 'src/app/entity/formulario-usuario';
 import { Opcion } from 'src/app/entity/opcion';
 import { Pregunta } from 'src/app/entity/pregunta';
 import { Usuario } from 'src/app/entity/usuario';
+import { FormularioUsuarioService } from 'src/app/servicio/formulario-usuario.service';
 import { FormularioService } from 'src/app/servicio/formulario.service';
 import { OpcionService } from 'src/app/servicio/opcion.service';
 import { PreguntaService } from 'src/app/servicio/pregunta.service';
@@ -26,7 +27,7 @@ export class FormularioUsuarioFormComponent implements OnInit {
   public usuario  : Usuario = new Usuario();
   public guardarPregunta: FormularioUsuario[] = new Array();
   constructor(private router: Router, private formularioService: FormularioService, private _router: ActivatedRoute, private preguntaService: PreguntaService,
-    private opcionService: OpcionService) { }
+    private opcionService: OpcionService, private formularioguardar: FormularioUsuarioService) { }
 
   ngOnInit(): void {
     this.usuario = JSON.parse(localStorage.getItem('Idusuario')|| '{}') ;
@@ -39,7 +40,7 @@ export class FormularioUsuarioFormComponent implements OnInit {
   }
 
   getByAllForm() {
-    this.formularioService.findAllForm().subscribe(
+    this.formularioService.findAllByUser(this.usuario.idUsuario).subscribe(
       userData => {
         this.formularios = userData
       }
@@ -87,11 +88,24 @@ export class FormularioUsuarioFormComponent implements OnInit {
 
   onChange(pre: Pregunta, opc :Opcion, idPregunta : Number, idOpcion: Number){
     debugger
-    var temp :  FormularioUsuario = new FormularioUsuario(new Usuario());
-    temp.idFormulario = this.paramId;
-    temp.idOpcionPregunta = opc.idOpcion;
-    temp.idPregunta = pre.idPregunta;
-    temp.idUsuario = this.usuario.idUsuario;
+    var temp :  FormularioUsuario = new FormularioUsuario();
+    temp.formulario = Math.floor(this.paramId);
+    temp.opcionPregunta = opc.idOpcion;
+    temp.pregunta = pre.idPregunta;
+    temp.usuario = this.usuario.idUsuario;
     this.guardarPregunta.push(temp);
   }
+
+  saveForm(){
+  debugger
+    this.formularioguardar.createForm(this.guardarPregunta).subscribe(
+      userData => {
+        if(userData != null){
+          alert("Formulario guardado");
+          this.router.navigate(['/formulariosRealizar']);
+        }
+      }
+    );
+  }
+
 }
