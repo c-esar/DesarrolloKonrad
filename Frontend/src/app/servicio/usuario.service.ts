@@ -7,7 +7,8 @@ import { Usuario } from '../entity/usuario';
 })
 export class UsuarioService {
   //Endpoint del Backend
-  private backendURL: string = "http://localhost:8081/usuario";
+  //private backendURL: string = "http://localhost:8081/usuario";
+  private backendURL: string  ="https://prueba-konrad-9043b6323108.herokuapp.com/usuario"
 
   constructor(
     //HttpClient para proporcionar métodos que reciben datos del backend

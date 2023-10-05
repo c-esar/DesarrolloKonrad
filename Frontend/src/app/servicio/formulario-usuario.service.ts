@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class FormularioUsuarioService {
  //Endpoint del Backend
- private backendURL: string = "http://localhost:8081/formularioUsuario";
+ //private backendURL: string = "http://localhost:8081/formularioUsuario";
+
+ private backendURL: string  ="https://prueba-konrad-9043b6323108.herokuapp.com/formularioUsuario"
 
  constructor(
    //HttpClient para proporcionar métodos que reciben datos del backend
