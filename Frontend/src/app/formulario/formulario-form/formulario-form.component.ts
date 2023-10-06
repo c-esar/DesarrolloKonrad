@@ -11,7 +11,7 @@ import { PreguntaService } from 'src/app/servicio/pregunta.service';
 @Component({
   selector: 'app-formulario-form',
   templateUrl: './formulario-form.component.html',
-  styleUrls: ['./formulario-form.component.css']
+  styleUrls: ['./formulario-form.component.css','./formulario-form2.component.css']
 })
 export class FormularioFormComponent implements OnInit {
 

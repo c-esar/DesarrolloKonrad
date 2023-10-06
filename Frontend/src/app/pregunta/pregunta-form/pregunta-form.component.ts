@@ -9,7 +9,7 @@ import { PreguntaService } from 'src/app/servicio/pregunta.service';
 @Component({
   selector: 'app-pregunta-form',
   templateUrl: './pregunta-form.component.html',
-  styleUrls: ['./pregunta-form.component.css']
+  styleUrls: ['./pregunta-form.component.css','./pregunta-form2.component.css']
 })
 export class PreguntaFormComponent implements OnInit {
 

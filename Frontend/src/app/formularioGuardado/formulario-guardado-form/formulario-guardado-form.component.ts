@@ -11,7 +11,7 @@ import { UsuarioService } from 'src/app/servicio/usuario.service';
 @Component({
   selector: 'app-formulario-guardado-form',
   templateUrl: './formulario-guardado-form.component.html',
-  styleUrls: ['./formulario-guardado-form.component.css']
+  styleUrls: ['./formulario-guardado-form.component.css','./formulario-guardado-form2.component.css']
 })
 export class FormularioGuardadoFormComponent implements OnInit {
 

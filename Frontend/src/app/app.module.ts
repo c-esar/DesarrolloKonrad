@@ -11,6 +11,7 @@ import { FormularioFormComponent } from './formulario/formulario-form/formulario
 import { PreguntaFormComponent } from './pregunta/pregunta-form/pregunta-form.component';
 import { FormularioUsuarioFormComponent } from './formularioUsuario/formulario-usuario-form/formulario-usuario-form.component';
 import { FormularioGuardadoFormComponent } from './formularioGuardado/formulario-guardado-form/formulario-guardado-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { FormularioGuardadoFormComponent } from './formularioGuardado/formulario
     AppRoutingModule,
     FormsModule,
     HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

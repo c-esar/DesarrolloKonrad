@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-registro-form',
   templateUrl: './registro-form.component.html',
-  styleUrls: ['./registro-form.component.css']
+  styleUrls: ['./registro-form.component.css','./registro-form2.component.css']
 })
 export class RegistroFormComponent implements OnInit {
 

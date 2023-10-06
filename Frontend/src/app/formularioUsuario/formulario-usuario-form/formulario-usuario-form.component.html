@@ -32,14 +32,14 @@
             <br>
             <h1>Respuestas Pregunta {{i+1}}</h1>
             <div class="accounttype" style="display: table-cell;" *ngFor="let opc of getOpcionsPregunta(item.idPregunta) ; let j = index">
-             <input type="checkbox" id="{{opc.nombreOpcion}}{{j}}" class="form-control" id="{{opc.nombreOpcion}}"  
-              name="{{opc.nombreOpcion}}" (change)="onChange(item,opc, i, j)">
+             <input type="radio" id="{{opc.nombreOpcion}}{{j}}" class="form-control" id="{{opc.nombreOpcion}}"  
+              name="opciones{{i+1}}" (change)="onChange(item,opc, i, j)">
               <label for="{{opc.nombreOpcion}}{{j}}" >{{opc.nombreOpcion}}</label>
             </div>
       
             <br>
           </div>
-          <button class="btn-login" (click)="saveForm()">Realizar</button>
+          <button class="btn-login" (click)="saveForm()">Enviar Respuestas</button>
           </form>
       </div>
 </div>

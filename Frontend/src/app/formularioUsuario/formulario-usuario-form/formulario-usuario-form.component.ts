@@ -14,27 +14,27 @@ import { PreguntaService } from 'src/app/servicio/pregunta.service';
 @Component({
   selector: 'app-formulario-usuario-form',
   templateUrl: './formulario-usuario-form.component.html',
-  styleUrls: ['./formulario-usuario-form.component.css']
+  styleUrls: ['./formulario-usuario-form.component.css', './formulario-usuario-form2.component.css']
 })
 export class FormularioUsuarioFormComponent implements OnInit {
 
   public formularios: Formulario[] | any;
   public paramId: string | any = null;
-
+  map = new Map<String, FormularioUsuario>();
   public seFormulario: Formulario | any;
   public sePregunta: Pregunta[] = new Array();
   public seOpcion: Opcion[] = new Array();
-  public usuario  : Usuario = new Usuario();
+  public usuario: Usuario = new Usuario();
   public guardarPregunta: FormularioUsuario[] = new Array();
   constructor(private router: Router, private formularioService: FormularioService, private _router: ActivatedRoute, private preguntaService: PreguntaService,
     private opcionService: OpcionService, private formularioguardar: FormularioUsuarioService) { }
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(localStorage.getItem('Idusuario')|| '{}') ;
+    this.usuario = JSON.parse(localStorage.getItem('Idusuario') || '{}');
     this.getParamURL();
     if (this.paramId != null) {
       this.seForm();
-    }else{
+    } else {
       this.getByAllForm();
     }
   }
@@ -68,7 +68,7 @@ export class FormularioUsuarioFormComponent implements OnInit {
           debugger
           if (userData != null) {
             for (var j = 0; j < userData.length; j++) {
-            this.seOpcion.push(userData[j]);
+              this.seOpcion.push(userData[j]);
             }
           }
         }
@@ -76,36 +76,50 @@ export class FormularioUsuarioFormComponent implements OnInit {
     }
   }
 
-  getOpcionsPregunta(id: number): Opcion[]{
-    var temp : Opcion[] =[];
+  getOpcionsPregunta(id: number): Opcion[] {
+    var temp: Opcion[] = [];
     for (var i = 0; i < this.seOpcion.length; i++) {
-      if(this.seOpcion[i].pregunta.idPregunta == id){
+      if (this.seOpcion[i].pregunta.idPregunta == id) {
         temp.push(this.seOpcion[i]);
       }
     }
     return temp;
   }
 
-  onChange(pre: Pregunta, opc :Opcion, idPregunta : Number, idOpcion: Number){
+  onChange(pre: Pregunta, opc: Opcion, idPregunta: Number, idOpcion: Number) {
     debugger
-    var temp :  FormularioUsuario = new FormularioUsuario();
-    temp.formulario = Math.floor(this.paramId);
-    temp.opcionPregunta = opc.idOpcion;
-    temp.pregunta = pre.idPregunta;
-    temp.usuario = this.usuario.idUsuario;
-    this.guardarPregunta.push(temp);
-  }
-
-  saveForm(){
-  debugger
-    this.formularioguardar.createForm(this.guardarPregunta).subscribe(
-      userData => {
-        if(userData != null){
-          alert("Formulario guardado");
-          this.router.navigate(['/formulariosRealizar']);
+    let valorSeleccionado :any = true;  
+    valorSeleccionado = this.guardarPregunta.some(val => val.pregunta === pre.idPregunta);
+    if (valorSeleccionado ) {
+      for(let i=0; i < this.guardarPregunta.length; i++){
+        if(this.guardarPregunta[i].pregunta === pre.idPregunta){
+          this.guardarPregunta.splice(i,1);
         }
       }
-    );
+    }
+      var temp: FormularioUsuario = new FormularioUsuario();
+      temp.formulario = Math.floor(this.paramId);
+      temp.opcionPregunta = opc.idOpcion;
+      temp.pregunta = pre.idPregunta;
+      temp.usuario = this.usuario.idUsuario;
+      this.guardarPregunta.push(temp);
+  }
+
+  saveForm() {
+    debugger
+    if(this.sePregunta.length === this.guardarPregunta.length){
+      this.formularioguardar.createForm(this.guardarPregunta).subscribe(
+        userData => {
+          if (userData != null) {
+            alert("Formulario guardado");
+            this.router.navigate(['/formulariosRealizar']);
+          }
+        }
+      );
+    }else{
+      alert("Falta preguntas por contestar");
+    }
+   
   }
 
 }

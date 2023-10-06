@@ -30,14 +30,15 @@ export class PrincipalFormComponent implements OnInit {
   }
 
   title = 'barchartApp';
-  gdpData = [
-    { name: "Punjab", value: 925 },
-    { name: "Sindh", value: 362 },
-    { name: "Khyber Pakhtunkhwa", value: 160 },
-    { name: "Balochistan", value: 84 },
-    { name: "Azad Jammu and Kashmir", value: 30 },
-    { name: "Islamabad (ICT)", value: 15 },
-    { name: "Gilgit-Baltistan", value: 10 },
-  ];
+  public titulo:string[] = ["Preguna1","Pregunta2","Pregunta3"];
+  public valor:number[] = [1,4,10];
+  public tipo:string ="doughnut";
 
+  public chartClicked(e:any):void{
+    console.log(e);
+  }
+
+  public chartHavered(e:any):void{
+    console.log(e);
+  }
 }
